@@ -35,7 +35,7 @@
 
 # Upgrading to ACOS 6.x.x 
 
-## Overview 
+## Overview 145520260817
 
 The Thunder device is provided with preinstalled ACOS software along with an ADC license. When you power ON the device, it boots up with the preinstalled software. To access the latest new features and software fixes as they become available, you must upgrade the ACOS software. 
 
