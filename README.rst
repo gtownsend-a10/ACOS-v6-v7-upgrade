@@ -76,6 +76,7 @@ Consider the following recommendations before upgrading the ACOS device:
 
 ## Unsupported Hardware and Features
 
+- The 4th Generation Hardware Platforms cannot be upgraded to ACOS 7.x version. For more information, see Hardware Platforms Support.  
 - The 3rd Generation Hardware Platforms cannot be upgraded to ACOS 6.x version. For more information, see Hardware Platforms Support.  
 
 - The Web Application Firewall (WAF) is no longer supported starting from the ACOS 6.x release. Hence, all WAF configurations will be removed after the upgrade. For more information, see Web Application Firewall Changes. 
