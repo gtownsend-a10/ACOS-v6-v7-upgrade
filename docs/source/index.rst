@@ -256,6 +256,7 @@ Pre-Upgrade Tasks
 *****************
 
 Before upgrading ACOS software, you must perform some basic checks. Keep the below information handy to ensure a seamless upgrade.  
+For an automated script to check the system requirements, [ACOS v7 Upgrade Check](https://github.com/gtownsend-a10/ACOS_v7_upgrade_check)
 
 
 Upgrade Preparation Checklist 
@@ -267,7 +268,7 @@ Upgrade Preparation Checklist
 
     ACOS(config)# show hardware | inc Gateway
   
-  Validate the platform is supported on version 6.x
+  Validate the platform is supported on version 7.x
 
   * vThunder:
 
@@ -287,7 +288,7 @@ Upgrade Preparation Checklist
 
       ACOS\>show version | inc ACOS
   
-    Validate that the current version is 4.x or later.
+    Validate that the current version is 6.0.7 or later.
 
     .. code-block:: shell
 
