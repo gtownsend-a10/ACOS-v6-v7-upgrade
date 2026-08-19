@@ -115,10 +115,11 @@ The upgrade path Table lists the supported upgrade paths for ACOS releases:
 
 System Requirement 
 =========
-The system requirements for ACOS software include the following: 
+The system requirements for ACOS v7.x software include the following: 
 
-  * For ACOS 6.x releases, the minimum disk space requirement is 8 GB.  
-  * For vThunder and Thunder devices, the minimum memory requirement is 8 GB. 
+  * The minimum disk space requirement is 128 GB.  
+  * For vThunder and Thunder devices, the minimum memory requirement is 16 GB.
+  * For vThunder and Thunder devices, the minimum CPU requirement is 8. 
 
 System Partitions
 =========
