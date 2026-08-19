@@ -16,7 +16,7 @@ If you are a new ACOS user, check the following documentation on the A10 Documen
   * For instructions on installing new hardware, see Installation Guide for Thunder Physical Appliance. 
   * For instruction on installing vThunder, see Installation Guide for Thunder Virtual Appliance. 
   * For instructions on installing cThunder, see Installation Guide for Thunder Container. 
-  * For instructions on installing ACOS on Bare Metal, see Installation Guide for Bare Metal. 
+  * For instructions on installing ACOS on Bare Metal, see Installation Guide for Bare Metal. 
   * For instructions on acquiring a product license, see Global Licensing Manager.  
   * For initial configuration instructions and quick processes handbook, see Quick Start Guide. 
 
@@ -35,7 +35,7 @@ The following topics are covered:
 * Rollback Upgrade 
 
 General Guidelines 
-******************
+*********
 
 Consider the following recommendations before upgrading the ACOS device: 
 
