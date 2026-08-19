@@ -1,7 +1,3 @@
-.. toctree:: 
- :maxdepth: 3
- :numbered:
-
 ##################
 Upgrading to ACOS 7.x.x
 ##################
@@ -258,7 +254,6 @@ Pre-Upgrade Tasks
 Before upgrading ACOS software, you must perform some basic checks. Keep the below information handy to ensure a seamless upgrade.  
 For an automated script to check the system requirements, [ACOS v7 Upgrade Check](https://github.com/gtownsend-a10/ACOS_v7_upgrade_check)
 
-
 Upgrade Preparation Checklist 
 =============================
 
@@ -346,6 +341,37 @@ Upgrade Preparation Checklist
    .. note::   
 
       For detailed information on all the commands, see ***Command Line Interface Reference***.
+
+Download Software Image 
+=======================
+
+A10 Networks has two device types, FTA and non-FTA.  All vThunder devices will use the non-FTA version and depending on the hardware type will determin the correct image.  The preupgrade scirpt will report FTA or non-FTA.  You can determine if your device has an FTA, login to the device and run the following command:
+
+  .. code-block:: shell
+
+     ACOS# show hardware | inc FPGA
+
+If a response is shown then the device had and FTA.
+
+.. code-block:: shell
+
+   FPGA       : 4 instance(s) present
+
+if the device does not have an FTA, no response to the ``show hardware`` command is displayed
+
+Log in to A10 Networks Support using the GLM credential and download the ACOS upgrade package as specified below:  
+
+* For FTA enabled platforms, use the image with the file name:
+
+  .. code-block:: shell
+ 
+    ACOS_FTA_<version>.upg
+
+* For Non-FTA enabled platforms (including vThunder), use the image with the file name: 
+
+  .. code-block:: shell
+
+    ACOS_non_FTA_<version>.upg
 
 Upgrade Instructions
 *********
