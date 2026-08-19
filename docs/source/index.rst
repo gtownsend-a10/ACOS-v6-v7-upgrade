@@ -17,7 +17,7 @@ If you are a new ACOS user, check the following documentation on the A10 Documen
   * For initial configuration instructions and quick processes handbook, see Quick Start Guide. 
 
 Purpose 
-=========
+=======
 
 This guide provides detailed instructions for upgrading from ACOS 4.x or 5.x to the latest version of 6.x. It includes information on pre-upgrade preparations, the upgrade procedure, post-upgrade tasks, troubleshooting tips, and additional resources. 
 
@@ -31,7 +31,7 @@ The following topics are covered:
 * Rollback Upgrade 
 
 General Guidelines 
-*********
+******************
 
 Consider the following recommendations before upgrading the ACOS device: 
 
@@ -66,7 +66,7 @@ Table 1 : Prerequisite Tasks
 | Check the platform compatibility versus the supported          | Hardware Platforms Support  |
 | release version                                                |                             |
 +----------------------------------------------------------------+-----------------------------+
-|Check the SKUs or product licenses availability.                | Hardware Product Licenses   |
+| Check the SKUs or product licenses availability.               | Hardware Product Licenses   |
 +----------------------------------------------------------------+-----------------------------+
 | Check the storage and memory requirement.                      | System Requirement          |
 +----------------------------------------------------------------+-----------------------------+
@@ -86,10 +86,10 @@ Table 1 : Prerequisite Tasks
    * Inform all users about the scheduled downtime and ensure they save any unsaved work or log out of the system before the upgrade begins. 
 
 Upgrade Requirements
-**********
+********************
 
 Version Requirements
-=========
+====================
 
 This upgrade document is for a 5.2.x to 6.x, Refer to the upgrade documentation for the specific upgrade path.
 
@@ -374,14 +374,18 @@ Log in to A10 Networks Support using the GLM credential and download the ACOS up
     ACOS_non_FTA_<version>.upg
 
 Upgrade Instructions
-*********
+********************
 
 This section describes the upgrade instructions using CLI and GUI. The upgrade instruction provided in this section applies to FTA platforms, non-FTA platforms, and non-aVCS environments.  
 
 CLI Configuration 
-=========
+=================
 
-1. Complete Upgrade Preparation Checklist
+1. Creates a backup of the system (startup-config file, aFleX scripts, and SSL certificates and keys) on a remote server using SCP:
+
+  .. code-block:: shell
+
+    ACOS(config)# backup system scp://exampleuser@192.168.3.3/home/users/exampleuser/backups/backupfile.tar.gz
 
 2. Upgrade the ACOS device to the inactve partition.  
 
@@ -419,19 +423,8 @@ CLI Configuration
 6. Import the required license and reboot again.  
   The upgrade process is completed successfully.  
 
-GUI Configuration 
-=========
-
-1. Log in to ACOS Web GUI using your credentials. 
-
-2. Navigate to System >> Maintenance >> Upgrade.  
-
-3. On the Upgrade page, click ? to open the Online Help. 
-
-The Online Help provides complete details on upgrade and rollback instructions.  
-
 Post-Upgrade Tasks 
-*********
+******************
 
 After performing upgrade, it is important to perform some basic post-upgrade checks.  
 
@@ -473,185 +466,4 @@ Restore Example
 Perform the post-upgrade tasks
 Post-Upgrade Tasks 
 
- 
-Restore Backup from same Platform
-*********
-
-New Platform migration
-=========
-
-You can use a saved backup to restore your current system, for example, when upgrading the devices in your network to the newer A10 Thunder Series devices.  
-
-Key Considerations for System Restore 
-*********
-
-System Memory 
----
-If the current device has insufficient memory compared to the backup device (for example, 16 GB on the current device compared to 32 GB on the previous device), this can adversely affect system performance.  
-
-FTA versus Non-FTA 
-=========
-
-When restoring from an FTA device to a non-FTA device, some commands may become unavailable after the restore operation. These commands are lost and cannot be restored. 
-
-L3V Partitions 
-=========
-
-L3v partitions and their configurations are restored. However, if you are restoring to a device that supports a fewer number of partitions (for example, 32) than you had configured from the backup device (for example, 64) any partitions and corresponding configuration beyond 32 will be lost. 
-
-Port Splitting 
-=========
-
-If you are restoring between devices with different 40 GB port splitting configurations, see Table 5. 
-
- 
-
-Table 5 : Restore Behavior for Port Splitting Combinations  
-
-+---------------+-----------------+--------------------------------------------------------+
-|Backup Device  |Current Device   |Behavior During the Restore Operation                   |
-+---------------+-----------------+--------------------------------------------------------+
-|Port splitting | Port splitting  |  Allow user to perform port mapping                    |
-|disabled       | disabled        | (See Port Mapping.)                                    |
-|or enabled.    | or enabled.     |                                                        |
-+---------------+-----------------+--------------------------------------------------------+
-|Port splitting | Port splitting  | Ask the user if they want to perform port mapping.     |
-|enabled        | disabled        | If yes, enable port splitting, reboot the device, and  |
-|               |                 | then perform the restore operation again, where        |
-|               |                 | port mapping will be enabled.                          |
-+---------------+-----------------+--------------------------------------------------------+
-|Port splitting | Port splitting  | Exit the restore operation. The user will have to      |
-|disabled       | enabled         | perform a system-reset or disable port splitting,      |
-|               |                 | reboot the system, and then perform the restore        |
-|               |                 | operation again.                                       |
-+---------------+-----------------+--------------------------------------------------------+
-
-
-Port Mapping 
-=========
-
-When restoring from a device that has a different number of ports, or even the same number of ports, you can map the port number from the previous configuration to a new port number (or same port number) in the new configuration.  
-
-In cases where the original number of ports is greater than the number of ports on the new system, some configurations may be lost. 
-
-If you choose to skip port mapping (see the example below), then the original port numbers and configurations are preserved. If the original device had ports 1-10 configured, and the new device only has ports 1-8, and you skip port mapping, then ports 9 and 10 are lost. If you choose port mapping, you can decide which 8 out of the original 10 ports you want to preserve during the port mapping process. 
-
-Restore Example 
-=========
-
-This section provides an example of a restore operation: 
-
-* The backup is restored from version 4.1.1-P1 to 4.1.1-P2.  
-* The system memory on the original device is 8 GB, but is 16GB on the new device. 
-* The number of interfaces on the original device is 10, but the new device has 12. 
-
-CLI Configuration 
-=========
-
-See the highlighted lines in the following example output along with the corresponding comments that are marked with “<--“characters: 
-
-.. code-block:: shell
-
-   ACOS(config)# restore use-mgmt-port scp://root@192.168.2.2/root/user1/backup1 
-   Password []? 
-   A10 Product: 
-   | Object         | Backup device                 | Current device 
-   |----------------|-------------------------------|--------------------- 
-   | Device         | TH1030                        | TH3030 
-   |Image version   | 4.1.1-P1                      | 4.1.1-P2
-
-   System memory: 
-        Object               Backup device        Current device 
-   ------------------------------------------------------------------- 
-       Memory (MB)          8174                 16384
-
-   Checking memory: OK. 
-
-   Ethernet Interfaces: 
-       Object               Backup device        Current device 
-   ------------------------------------------------------------------- 
-       Total                10                    12 
-       1 Gig                1-10                  1-12 
-   Do you want to skip port map?(Answer no if you want port mapping manually.) 
-   [yes/no]: no
-    
-   Please specify the Current device to Backup device port mapping 
-   1-10 : a valid port number in backup device. 
-   0    : to skip a port 
-   -1   : to restart port mapping. 
-
-   Current Port:    Backup device port 
-   Port 1 : 2 <-- port 2 on the backup device is re-numbered to 1 
-   Port 2 : 1 <-- port 1 on the backup device is re-numbered to 2 
-   Port 3  :            0 
-   Port 4  :            0 
-   Port 5  :            0 
-   Port 6  :            0 
-   Port 7  :            0 
-   Port 8  :            0 
-   Port 9  :            0 
-   Port 10 :            0
-   
-   The current startup-configuration will be replaced with the new configuration that was imported.
-
-   Do you wish to see the diff between the updated startup-config and the original backup configuration? 
-
-   [yes/no]: yes 
-
-   Modified configuration begin with "!#" 
-
-   !Current configuration: 277 bytes 
-   !Configuration last updated at 05:38:18 UTC Fri Mar 17 2017 
-   !Configuration last saved at 05:38:19 UTC Fri Mar 17 2017 
-   !64-bit Advanced Core OS (ACOS) version 4.1.1-P2, build 112 (Mar-13-2017,15:41) 
-   ! 
-   interface management 
-     ip address 192.168.210.24 255.255.255.0 
-     ip default-gateway 192.168.210.1 
-   !#interface management 
-   !#  ip address 192.168.210.24 255.255.255.0 
-   !#  ip default-gateway 192.168.210.1 
-   !#  exit-module 
-   ! 
-   interface ethernet 2 
-   !#interface ethernet 1 <-- original port 1 is now port 2 
-     exit-module 
-   ! 
-   interface ethernet 1 
-   !#interface ethernet 2 <-- original port 2 is now port 1 
-     exit-module 
-   ! 
-   !#interface ethernet 3 
-   !#  exit-module 
-   ! 
-   !#interface ethernet 4 
-   !#  exit-module 
-   ! 
-   !#interface ethernet 5 
-   !#  exit-module 
-   ! 
-   !#interface ethernet 6 
-   !#  exit-module 
-   ! 
-   !#interface ethernet 7 
-   !#  exit-module 
-   ! 
-   !#interface ethernet 8 
-   !#  exit-module 
-   ! 
-   ! 
-   end 
-   Complete the restore process? 
-   [yes/no]: yes 
-   Please wait restore to complete: . 
-
-   Restore successful. Please reboot to take effect. 
-
-
-GUI Configuration 
-=========
-
-1. Log in to ACOS Web GUI using your credentials. 
-2. Navigate to System >> Maintenance >> Restore.  
-> ==Need to get screen shots
  
