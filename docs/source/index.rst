@@ -16,7 +16,7 @@ If you are a new ACOS user, check the following documentation on the A10 Documen
   * For instructions on installing new hardware, see Installation Guide for Thunder Physical Appliance. 
   * For instruction on installing vThunder, see Installation Guide for Thunder Virtual Appliance. 
   * For instructions on installing cThunder, see Installation Guide for Thunder Container. 
-  * For instructions on installing ACOS on Bare Metal, see Installation Guide for Bare Metal. 
+  * For instructions on installing ACOS on Bare Metal, see Installation Guide for Bare Metal. 
   * For instructions on acquiring a product license, see Global Licensing Manager.  
   * For initial configuration instructions and quick processes handbook, see Quick Start Guide. 
 
@@ -35,7 +35,7 @@ The following topics are covered:
 * Rollback Upgrade 
 
 General Guidelines 
-*********
+******************
 
 Consider the following recommendations before upgrading the ACOS device: 
 
@@ -51,14 +51,14 @@ Consider the following recommendations before upgrading the ACOS device:
 * During the reboot, the system performs a full reset and will be offline. The actual duration may vary depending on the system parameters.  
 
 Unsupported Hardware and Features
-*********
+*********************************
 
 .. warning:: 
    * The 3rd Generation Hardware Platforms cannot be upgraded to ACOS 6.x version. For more information, see Hardware Platforms Support.  
    * The Web Application Firewall (WAF) is no longer supported starting from the ACOS 6.x release. Hence, all WAF configurations will be removed after the upgrade. For more information, see Web Application Firewall Changes. 
 
 Prerequisites 
-*********
+*************
 
 This section outlines essential information that you should know before proceeding with the upgrade process.  
 
@@ -124,10 +124,12 @@ ACOS 6.x
 
 ACOS 7.x
   * The minimum disk space requirement is 128 GB.  
-  * The minimum memory requirement is 16 GB.
+  * The minimum memory requirement is 16 GB. 
+
+
 
 System Partitions
-=========
+=================
 
 Each ACOS device contains one shared partition. By default, this is the only partition on the device and cannot be deleted. If there are no additional partitions on the device, all configuration changes occur in the shared partition. 
 
@@ -154,7 +156,7 @@ Depending on the configuration profile and the partition being saved to, the fol
 +------------------------------------------------+--------------------------------------------------------------+
 
 Review Boot Order 
-=========
+=================
 
 This section describes general guidelines on how ACOS selects the boot image. 
 
@@ -172,7 +174,7 @@ You need to change the boot order only when you plan to upload the new image int
   restore the system in case a downgrade is necessary or if an issue occurs while rebooting the new image.  
 
 Upgrade Process
-=========
+===============
 
 +-------------+--------------+---------+------------+
 |System       | Partition 1  | Upgrade | Partition 2|
@@ -189,7 +191,7 @@ Upgrade Process
 +-------------+--------------+---------+------------+
 
 Download Software Image 
-=========
+=======================
 
 A10 Networks has two device types, FTA and non-FTA.  All vThunder devices will use the non-FTA version and depending on the hardware type will determin the correct image.  To determine if your device has an FTA, login to the device and run the following command:
 
@@ -220,14 +222,14 @@ Log in to A10 Networks Support using the GLM credential and download the ACOS up
     ACOS_non_FTA_<version>.upg
 
 Perform a Backup 
-=========
+================
 
 It's essential to perform a complete backup of your data, including configuration settings, databases, and any customizations. This backup will prove invaluable in case of unexpected issues during the upgrade and you want to restore it. For information about restoring a backup, see Restore from a Backup.  
 
 This section provides examples of how to back up your system. 
 
 CLI Configuration Backup 
-=========
+========================
 
 It is recommended to backup the system and the log files prior to upgrading the software.  
 * The following example creates a backup of the system (startup-config file, aFleX scripts, and SSL certificates and keys) on a remote server using SCP:
@@ -243,7 +245,7 @@ It is recommended to backup the system and the log files prior to upgrading the 
      ACOS(config)# backup log period 1 use-mgmt-port scp://exampleuser@192.168.3.3/home/users/exampleuser/backups/backuplog.tar.gz
 
 GUI Configuration Backup
-=========
+========================
 
 1. Log in to ACOS Web GUI using your credentials. 
 
@@ -251,13 +253,13 @@ GUI Configuration Backup
    >  == Add screenshot? 
 
 Pre-Upgrade Tasks 
-*********
+*****************
 
 Before upgrading ACOS software, you must perform some basic checks. Keep the below information handy to ensure a seamless upgrade.  
 
 
 Upgrade Preparation Checklist 
-=========
+=============================
 
   * Verify platform compatability:
 
